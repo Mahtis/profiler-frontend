@@ -3,7 +3,6 @@ import Grid from 'material-ui/Grid'
 import TextField from 'material-ui/TextField'
 import MenuItem from 'material-ui/Menu/MenuItem'
 import List, { ListItem, ListItemText} from 'material-ui/List'
-import Card, { CardMedia } from 'material-ui/Card'
 import axios from 'axios'
 
 class ProfilePage extends Component {
@@ -22,20 +21,31 @@ class ProfilePage extends Component {
       const { questions, id, picture, account_id } = data.data
       this.setState({ questions, id, picture, account_id })
     })
+    axios.get('http://localhost:8000/responses').then(data => {
+      this.setState({ responseData: data.data })
+    })
+  }
+
+  getResponsePercentages() {
+    this.state.responseData[0][this.state.responses['1']]
   }
 
   handleChange(event) {
-    console.log(event.target)
-    console.log(event.target.name)
-    console.log(event.target.value)
+    //console.log(event.target)
+    //console.log(event.target.name)
+    //console.log(event.target.value)
     //console.log(this.state)
     const responses = this.state.responses
     responses[event.target.name] = event.target.value
     this.setState({ responses })
+    this.state.responseData.map((resp) => {
+      console.log(resp)
+    })
+    //console.log(responses)
   }
 
   render() {
-    
+    console.log(this.state.responseData)
     return this.state.questions? (
       <Grid container spacing={24} justify="space-around">
         <Grid item xs={4}>
