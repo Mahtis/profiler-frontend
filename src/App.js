@@ -7,6 +7,7 @@ import Main from './components/Main'
 class App extends Component {
   render() {
     //const profile = axios.get('localhost:8000/profiles')
+    /*
     axios.get('http://localhost:8000/data')
       .then(resp => { 
         console.log(resp)
@@ -14,6 +15,7 @@ class App extends Component {
       .catch(function (error) {
         console.log(error)
       })
+      */
     return (
       <Main />
     )

@@ -1,8 +1,10 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import ProfilePage from './ProfilePage'
 import Tabs, { Tab } from 'material-ui/Tabs'
 import AppBar from 'material-ui/AppBar'
+
+import ProfilePage from './ProfilePage'
+import HomePage from './HomePage'
 
 const BASE_PATH = '/'
 
@@ -18,7 +20,8 @@ const Main = () => (
           </Tabs>
         </AppBar>
         <Switch>
-          <Route path="/profiles" component={ProfilePage} />
+          <Route path="/profiles/:profileId" component={ProfilePage} />
+          <Route path="/" component={HomePage} />
         </Switch>
       </div>
     </Router>

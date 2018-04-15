@@ -17,7 +17,8 @@ class ProfilePage extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:8000/data').then(data => {
+    const { profileId } = this.props.match.params
+    axios.get(`http://localhost:8000/profiles/${profileId}`).then(data => {
       const { questions, id, picture, account_id } = data.data
       this.setState({ questions, id, picture, account_id })
     })
