@@ -14,9 +14,9 @@ const Main = () => (
       <div>
         <AppBar position='static'>
           <Tabs>
-            <Tab label="One" />
-            <Tab label="Two" />
-            <Tab label="Three" />
+            <Tab label="home" href="/" />
+            <Tab label="my page" />
+            <Tab label="login" />
           </Tabs>
         </AppBar>
         <Switch>

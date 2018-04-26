@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import GridList, { GridListTile } from 'material-ui/GridList'
+import Grow from 'material-ui/transitions/Grow'
 
 class HomePage extends Component {
   constructor() {
@@ -24,11 +26,13 @@ class HomePage extends Component {
         <h1>Hello fello</h1>
         <GridList cellHeight='auto' cols={4}>
           {profiles.map((profile, i) => (
-            <GridListTile key={profile.id} cols={1}>
-              <a href={`/profiles/${profile.id}`}>
-                <img src={`http://localhost:8000/${profile.thumbnail}`} alt={`profile_${i}`} />
-              </a>
-            </GridListTile>
+            <Grow in={true}>
+              <GridListTile key={profile.id} cols={1}>
+                <Link to={`/profiles/${profile.id}`}>
+                  <img src={`http://localhost:8000/${profile.thumbnail}`} alt={`profile_${i}`} />
+                </Link>
+              </GridListTile>
+            </Grow>
           ))}
         </GridList>
         {/*this.state.profiles.map((profile, i) => (
