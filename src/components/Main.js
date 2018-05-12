@@ -5,6 +5,8 @@ import AppBar from 'material-ui/AppBar'
 
 import ProfilePage from './ProfilePage'
 import HomePage from './HomePage'
+import LoginPage from './LoginPage'
+import RegisterPage from './RegisterPage'
 
 const BASE_PATH = '/'
 
@@ -16,10 +18,13 @@ const Main = () => (
           <Tabs>
             <Tab label="home" href="/" />
             <Tab label="my page" />
-            <Tab label="login" />
+            <Tab label="login" href="/login" />
+            <Tab label="register" href="/register" />
           </Tabs>
         </AppBar>
         <Switch>
+          <Route path="/register" component={RegisterPage} />
+          <Route path="/login" component={LoginPage} />
           <Route path="/profiles/:profileId" component={ProfilePage} />
           <Route path="/" component={HomePage} />
         </Switch>

@@ -5,7 +5,6 @@ import MenuItem from 'material-ui/Menu/MenuItem'
 import List, { ListItem, ListItemText} from 'material-ui/List'
 import Button from 'material-ui/Button'
 import axios from 'axios'
-import { Redirect } from 'react-router-dom'
 
 class ProfilePage extends Component {
   constructor() {
