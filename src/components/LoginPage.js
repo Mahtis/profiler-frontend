@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-
+import { login } from '../util'
 
 class LoginPage extends Component {
 
@@ -12,19 +11,24 @@ class LoginPage extends Component {
   }
 
   submitLogin = () => {
-    axios.post('http://localhost:8000/login', this.state).then(res => {
+    login(this.state).then(res => {
       console.log(res)
     })
-    console.log(this.state)
   }
-  
+
   render() {
     return (
       <div>
         <h1>this is a login page</h1>
-        <p><span>Username: </span><TextField name="username" onChange={this.handleChange} /></p>
-        <p><span>Password: </span><TextField name="password" type="password" onChange={this.handleChange} /></p>
-        <Button variant="raised" color="primary" onClick={this.submitLogin} >Login</Button>
+        <div>
+          <span>Username: </span><TextField name="username" onChange={this.handleChange} />
+        </div>
+        <div>
+          <span>Password: </span><TextField name="password" type="password" onChange={this.handleChange} />
+        </div>
+        <div>
+          <Button variant="raised" color="primary" onClick={this.submitLogin} >Login</Button>
+        </div>
 
         <p>Not yet registered? <Link to="/register">Sign up!</Link> </p>
       </div>

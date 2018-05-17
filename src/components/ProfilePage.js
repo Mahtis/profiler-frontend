@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import Grid from 'material-ui/Grid'
 import TextField from 'material-ui/TextField'
 import MenuItem from 'material-ui/Menu/MenuItem'
-import List, { ListItem, ListItemText} from 'material-ui/List'
+import List, { ListItem, ListItemText } from 'material-ui/List'
 import Button from 'material-ui/Button'
-import axios from 'axios'
+import { getProfile, submitResponses } from '../api'
 
 class ProfilePage extends Component {
   constructor() {
@@ -20,9 +20,13 @@ class ProfilePage extends Component {
 
   componentDidMount() {
     const { profileId } = this.props.match.params
-    axios.get(`http://localhost:8000/profiles/${profileId}`).then(res => {
-      const { questions, id, picture, account_id } = res.data
+    getProfile(profileId).then(res => {
+      const { questions, id, picture, account_id } = res.data.profile
       this.setState({ questions, id, picture, account_id })
+      if (res.data.amounts) {
+        console.log(res.data.amounts)
+        this.setState({ responseData: res.data.amounts })
+      }
     }).catch(e => {
       console.log(e)
     })
@@ -43,7 +47,7 @@ class ProfilePage extends Component {
 
   submitResponses = e => {
     console.log(this.state.responses)
-    axios.post('http://localhost:8000/responses', this.state.responses).then(res => {
+    submitResponses(this.state.responses).then(res => {
       this.setState({ responseData: res.data.amounts })
       console.log(res)
     })
@@ -53,17 +57,17 @@ class ProfilePage extends Component {
     if (this.state.user) return (
       <List>
         {this.state.questions.map((question) => (
-          <ListItem>
+          <ListItem key={question.id}>
             <ListItemText inset primary={question.text} />
-            <TextField 
-              select 
+            <TextField
+              select
               name={question.id}
               fullWidth
               margin="normal"
               value={this.state.responses[question.id]? this.state.responses[question.id] : ''}
               onChange={this.handleChange} >
               {question.response_options.map((option) => (
-                <MenuItem value={option.id}>{option.option_value}</MenuItem>
+                <MenuItem key={option.id} value={option.id}>{option.option_value}</MenuItem>
               ))}
             </TextField>
           </ListItem>
@@ -73,7 +77,7 @@ class ProfilePage extends Component {
     return (
       <List>
         {this.state.questions.map((question) => (
-          <ListItem>
+          <ListItem key={question.id}>
             <ListItemText inset primary={question.text} />
           </ListItem>
         ))}
@@ -83,9 +87,9 @@ class ProfilePage extends Component {
 
   renderButton = () => {
     if (this.state.user) return (
-        <Button variant="raised" color="primary" onClick={this.submitResponses} >
-            Submit answers
-        </Button> 
+      <Button variant="raised" color="primary" onClick={this.submitResponses} >
+          Submit answers
+      </Button>
     )
     return (
       <div>
@@ -93,7 +97,7 @@ class ProfilePage extends Component {
             Submit answers
         </Button>
         <p><a href="#">Register</a> or <a href="#">log in</a> to submit your responses</p>
-      </div> 
+      </div>
     )
   }
 

@@ -28,6 +28,9 @@ const Main = () => (
           <Route path="/profiles/:profileId" component={ProfilePage} />
           <Route path="/" component={HomePage} />
         </Switch>
+        <div>
+          <p>This is the footer</p>
+        </div>
       </div>
     </Router>
   </div>
