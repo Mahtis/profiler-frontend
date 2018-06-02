@@ -7,6 +7,7 @@ import ProfilePage from './ProfilePage'
 import HomePage from './HomePage'
 import LoginPage from './LoginPage'
 import RegisterPage from './RegisterPage'
+import UserPage from './UserPage'
 
 const BASE_PATH = '/'
 
@@ -17,7 +18,7 @@ const Main = () => (
         <AppBar position='static'>
           <Tabs>
             <Tab label="home" href="/" />
-            <Tab label="my page" />
+            <Tab label="my page" href="/my_page"/>
             <Tab label="login" href="/login" />
             <Tab label="register" href="/register" />
           </Tabs>
@@ -25,6 +26,7 @@ const Main = () => (
         <Switch>
           <Route path="/register" component={RegisterPage} />
           <Route path="/login" component={LoginPage} />
+          <Route path="/my_page" component={UserPage} />
           <Route path="/profiles/:profileId" component={ProfilePage} />
           <Route path="/" component={HomePage} />
         </Switch>
