@@ -8,21 +8,29 @@ import { getUserProfiles, getUserResponses } from '../api'
 class UserPage extends Component {
   state = {
     responses: [],
-    profiles: []
+    profiles: [],
+    totalCorrect: 0
   }
 
   componentDidMount() {
     // get user's profiles with stats, but only if it is empty
     // i.e. store stats in global state
     getUserProfiles().then(res => this.setState({ profiles: res.data }))
-    getUserResponses().then(res => this.setState({ responses: res.data }))
+    getUserResponses().then(res => this.setState({ responses: res.data.profiles, totalCorrect: res.data.totalCorrect }))
     // get user scores
     // get user reviews with scores
 
   }
 
+  totalAgreement = (responses) => {
+    const total = responses.reduce((total, resp) => total + resp.agreement.agreement, 0)
+    console.log(total)
+    console.log(total / responses.length)
+    return (total / responses.length).toFixed(2)
+  }
+
   render() {
-    console.log(this.state.responses)
+    console.log(this.state)
     //const corrects = this.state.responses.map()
     return (
       <Grid container spacing={24}>
@@ -40,8 +48,8 @@ class UserPage extends Component {
         <Grid item xs={4}>
           <h3>Your profile scores</h3>
           <h2>Profiles reviewed: {this.state.responses.length}</h2>
-          <h2>Correct responses: XX%</h2>
-          <h2>Agreement with others: XX%</h2>
+          <h2>Correct responses: {this.state.totalCorrect.toFixed(2)}%</h2>
+          <h2>Agreement with others: {this.totalAgreement(this.state.responses)}%</h2>
         </Grid>
         <Grid item xs={4}>
           <h3>Profiles you have scored</h3>
@@ -49,7 +57,7 @@ class UserPage extends Component {
             {this.state.responses.map(profile => (
               <ListItem button component="a" href={`/profiles/${profile.profileId}`} key={profile.profileId}>
                 <Avatar alt={`Profile ${profile.profileId}:`} src={`http://localhost:8000/${profile.thumbnail}`} />
-                <ListItemText primary={`${profile.correct}/${profile.total} correct`} />
+                <ListItemText primary={`${profile.correct}/${profile.total} correct, ${profile.agreement.agreement.toFixed(2)}% agreement` } />
               </ListItem>
             ))}
           </List>
