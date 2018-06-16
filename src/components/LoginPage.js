@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { login } from '../util'
 
 class LoginPage extends Component {
+  state = {
+    logged: false
+  }
 
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value })
@@ -13,10 +16,12 @@ class LoginPage extends Component {
   submitLogin = () => {
     login(this.state).then(res => {
       console.log(res)
+      this.setState({ logged: true })
     })
   }
 
   render() {
+    if (this.state.logged) return <Redirect to="/my_page" />
     return (
       <div>
         <h1>this is a login page</h1>
