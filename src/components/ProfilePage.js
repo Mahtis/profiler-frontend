@@ -12,7 +12,7 @@ class ProfilePage extends Component {
 
     this.state = {
       responses: {},
-      user: 'user'
+      user: {}
     }
 
     //this.handleChange = this.handleChange.bind(this)
@@ -24,8 +24,8 @@ class ProfilePage extends Component {
       const { questions, id, picture, account_id } = res.data.profile
       this.setState({ questions, id, picture, account_id })
       if (res.data.amounts) {
-        console.log(res.data.amounts)
-        this.setState({ responseData: res.data.amounts })
+        console.log(res.data)
+        this.setState({ responseData: res.data.amounts, correct: res.data.correct })
       }
     }).catch(e => {
       console.log(e)
@@ -45,7 +45,7 @@ class ProfilePage extends Component {
     })*/
   }
 
-  submitResponses = e => {
+  submitResponses = () => {
     console.log(this.state.responses)
     submitResponses(this.state.responses).then(res => {
       this.setState({ responseData: res.data.amounts })
@@ -85,24 +85,14 @@ class ProfilePage extends Component {
     )
   }
 
-  renderButton = () => {
-    if (this.state.user) return (
-      <Button variant="raised" color="primary" onClick={this.submitResponses} >
-          Submit answers
-      </Button>
-    )
-    return (
-      <div>
-        <Button variant="raised" color="primary" disabled onClick={this.submitResponses} >
-            Submit answers
-        </Button>
-        <p><a href="#">Register</a> or <a href="#">log in</a> to submit your responses</p>
-      </div>
-    )
-  }
+  renderButton = () => (
+    <Button variant="raised" color="primary" disabled={!this.state.user} onClick={this.submitResponses} >
+        Submit answers
+    </Button>
+  )
 
   render() {
-    console.log(this.state.responseData)
+    //console.log(this.state.responseData)
     return this.state.questions ? (
       <Grid container spacing={24} justify="space-around">
         <Grid item xs={4}>
@@ -116,15 +106,18 @@ class ProfilePage extends Component {
         </Grid>
         <Grid item xs={4}>
           {this.state.responseData ? (
-            <List>
-              {this.state.responseData.map((response) => (
-                <ListItem>
-                  <ListItemText inset primary={`${(response.amount / response.total * 100).toFixed(0)}%`} />
-                </ListItem>
-              ))}
-            </List>
-            ) :
-          <p>Submit responses to see how well you did</p> 
+            <div>
+              <h2>You got {this.state.correct}/{this.state.responseData.length} correct!</h2>
+              <List>
+                {this.state.responseData.map((response) => (
+                  <ListItem key={response.response_option_id}>
+                    <ListItemText inset primary={`${(response.amount / response.total * 100).toFixed(0)}%`} />
+                  </ListItem>
+                ))}
+              </List>
+            </div>
+          ) :
+            <p>Submit responses to see how well you did</p> 
           }
           
         </Grid>

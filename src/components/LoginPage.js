@@ -6,7 +6,9 @@ import { login } from '../util'
 
 class LoginPage extends Component {
   state = {
-    logged: false
+    logged: false,
+    username: '',
+    password: ''
   }
 
   handleChange = (event) => {

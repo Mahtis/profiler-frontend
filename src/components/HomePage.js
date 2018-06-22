@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import axios from 'axios'
 import GridList, { GridListTile } from 'material-ui/GridList'
 import Grow from 'material-ui/transitions/Grow'
+
+import { getUserAction } from '../actions/actions.js'
 
 class HomePage extends Component {
   constructor() {
@@ -10,20 +13,20 @@ class HomePage extends Component {
 
     this.state = { profiles: [] }
   }
-  
 
-  componentDidMount() {
+  componentDidMount = async () => {
     axios.get('http://localhost:8000/').then(data => {
       this.setState({ profiles: data.data })
     })
   }
 
   render() {
-    console.log(this.state.profiles)
+    //console.log(this.props.user)
+    //console.log(this.state.profiles)
     const { profiles } = this.state
     return (
       <div>
-        <h1>Hello fello</h1>
+        <h1>Hello fella</h1>
         <GridList cellHeight='auto' cols={4}>
           {profiles.map((profile, i) => (
             <Grow in={true}>
@@ -43,4 +46,13 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage
+const mapDispatchToProps = (dispatch) => ({
+  dispatchGetUser: () =>
+    dispatch(getUserAction())
+})
+
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
