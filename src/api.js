@@ -11,3 +11,7 @@ export const getUserProfiles = () => getJson('profiles')
 export const getUserResponses = () => getJson('responses')
 
 export const submitResponses = responses => postJson('responses', responses)
+
+export const getQuestions = () => getJson('questions')
+
+export const submitNewProfile = (data) => postJson('profiles', data)

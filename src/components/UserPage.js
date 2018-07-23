@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Grid from 'material-ui/Grid'
 import List, { ListItem, ListItemText } from 'material-ui/List'
 import Avatar from 'material-ui/Avatar'
+import Button from 'material-ui/Button'
 
 import { getUserProfiles, getUserResponses } from '../api'
 
@@ -35,7 +36,7 @@ class UserPage extends Component {
     return (
       <Grid container spacing={24}>
         <Grid item xs={4}>
-          <h3>Your profiles</h3>
+          <h3>Your profiles <Button variant="raised" href="/my_page/create_profile">create profile</Button></h3>
           <List>
             {this.state.profiles.map(profile => (
               <ListItem button component="a" href={`/profiles/${profile.id}`} key={profile.id}>
