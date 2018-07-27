@@ -1,5 +1,7 @@
 import { postJson, getJson } from './util'
 
+export const submitRegister = data => postJson('accounts/register', data)
+
 export const login = data => postJson('login', data)
 
 export const getUser = () => getJson('accounts')
