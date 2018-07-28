@@ -46,8 +46,9 @@ class ProfilePage extends Component {
   }
 
   submitResponses = () => {
+    const { profileId } = this.props.match.params
     console.log(this.state.responses)
-    submitResponses(this.state.responses).then(res => {
+    submitResponses(this.state.responses, profileId).then(res => {
       this.setState({ responseData: res.data.amounts })
       console.log(res)
     })

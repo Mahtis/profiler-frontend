@@ -12,7 +12,7 @@ export const getUserProfiles = () => getJson('profiles')
 
 export const getUserResponses = () => getJson('responses')
 
-export const submitResponses = responses => postJson('responses', responses)
+export const submitResponses = (responses, profileId) => postJson(`responses/${profileId}`, responses)
 
 export const getQuestions = () => getJson('questions')
 
