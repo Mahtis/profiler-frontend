@@ -5,6 +5,7 @@ import Avatar from 'material-ui/Avatar'
 import Button from 'material-ui/Button'
 
 import { getUserProfiles, getUserResponses } from '../api'
+import { BASE_PATH } from '../util'
 
 class UserPage extends Component {
   state = {
@@ -40,7 +41,7 @@ class UserPage extends Component {
           <List>
             {this.state.profiles.map(profile => (
               <ListItem button component="a" href={`/profiles/${profile.id}`} key={profile.id}>
-                <img alt={`Profile ${profile.id}:`} src={`http://localhost:8000/${profile.thumbnail}`} />
+                <img alt={`Profile ${profile.id}:`} src={`${BASE_PATH}/${profile.thumbnail}`} />
                 <ListItemText primary={`${profile.correct.toFixed(2)}% correct with ${profile.total} reviews`} />
               </ListItem>
             ))}
@@ -57,7 +58,7 @@ class UserPage extends Component {
           <List>
             {this.state.responses.map(profile => (
               <ListItem button component="a" href={`/profiles/${profile.profileId}`} key={profile.profileId}>
-                <Avatar alt={`Profile ${profile.profileId}:`} src={`http://localhost:8000/${profile.thumbnail}`} />
+                <Avatar alt={`Profile ${profile.profileId}:`} src={`${BASE_PATH}/${profile.thumbnail}`} />
                 <ListItemText primary={`${profile.correct}/${profile.total} correct, ${profile.agreement.agreement.toFixed(2)}% agreement` } />
               </ListItem>
             ))}

@@ -5,6 +5,7 @@ import MenuItem from 'material-ui/Menu/MenuItem'
 import List, { ListItem, ListItemText } from 'material-ui/List'
 import Button from 'material-ui/Button'
 import { getProfile, submitResponses } from '../api'
+import { BASE_PATH } from '../util'
 
 class ProfilePage extends Component {
   constructor() {
@@ -101,7 +102,7 @@ class ProfilePage extends Component {
           {this.renderButton()}
         </Grid>
         <Grid item xs={4}>
-          <img style={ { maxWidth: '100%' } } src={`http://localhost:8000/${this.state.picture}`} alt="Something" />
+          <img style={ { maxWidth: '100%' } } src={`${BASE_PATH}/${this.state.picture}`} alt="Something" />
           <Button variant="raised" href={`/profiles/${(parseInt(this.props.match.params.profileId) - 1)}`} >previous</Button>
           <Button variant="raised" href={`/profiles/${(parseInt(this.props.match.params.profileId) + 1)}`}>next</Button>
         </Grid>

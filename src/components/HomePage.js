@@ -5,7 +5,9 @@ import axios from 'axios'
 import GridList, { GridListTile } from 'material-ui/GridList'
 import Grow from 'material-ui/transitions/Grow'
 
-import { getUserAction } from '../actions/actions.js'
+import { getUserAction } from '../actions/actions'
+import { getProfiles } from '../api'
+import { BASE_PATH } from '../util'
 
 class HomePage extends Component {
   constructor() {
@@ -15,9 +17,10 @@ class HomePage extends Component {
   }
 
   componentDidMount = async () => {
-    axios.get('http://localhost:8000/').then(data => {
-      this.setState({ profiles: data.data })
-    })
+    getProfiles().then(res => this.setState({ profiles: res.data }))
+    // axios.get('http://localhost:8000/api/').then(data => {
+    //   this.setState({ profiles: data.data })
+    // })
   }
 
   render() {
@@ -32,7 +35,7 @@ class HomePage extends Component {
             <Grow in={true}>
               <GridListTile key={profile.id} cols={1}>
                 <Link to={`/profiles/${profile.id}`}>
-                  <img src={`http://localhost:8000/${profile.thumbnail}`} alt={`profile_${i}`} />
+                  <img src={`${BASE_PATH}/${profile.thumbnail}`} alt={`profile_${i}`} />
                 </Link>
               </GridListTile>
             </Grow>
