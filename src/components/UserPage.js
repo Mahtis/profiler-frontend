@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import Grid from 'material-ui/Grid'
-import List, { ListItem, ListItemText } from 'material-ui/List'
-import Avatar from 'material-ui/Avatar'
-import Button from 'material-ui/Button'
+import Grid from '@material-ui/core/Grid'
+import List, { ListItem, ListItemText } from '@material-ui/core/List'
+import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button'
 
 import { getUserProfiles, getUserResponses } from '../api'
 import { BASE_PATH } from '../util'

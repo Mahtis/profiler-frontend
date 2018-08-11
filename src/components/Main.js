@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Tabs, { Tab } from 'material-ui/Tabs'
-import AppBar from 'material-ui/AppBar'
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
+import AppBar from '@material-ui/core/AppBar'
 import { connect } from 'react-redux'
 import jwt from 'jsonwebtoken'
 
@@ -13,10 +14,14 @@ import LoginPage from './LoginPage'
 import RegisterPage from './RegisterPage'
 import UserPage from './UserPage'
 import CreateProfilePage from './CreateProfilePage'
+import AdminPage from './AdminPage'
 
 const BASE_PATH = '/'
 
 class Main extends Component {
+  state = {
+    value: 'home'
+  }
 
   componentDidMount() {
     if (localStorage.token) {
@@ -30,18 +35,22 @@ class Main extends Component {
     }
   }
 
+  handleChange = (e, value) => {
+    this.setState({ value })
+  }
+
   render() {
     return (
       <div>
         <Router basename={BASE_PATH} >
           <div>
             <AppBar position='static'>
-              <Tabs>
-                <Tab label="home" href="/" />
-                <Tab label="my page" href="/my_page"/>
-                <Tab label="login" href="/login" />
-                <Tab label="register" href="/register" />
-                {/* {this.props.user ? } */}
+              <Tabs value={this.state.value} onChange={this.handleChange}>
+                <Tab value="home" label="home" component={Link} to="/" />
+                <Tab value="my page" label="my page" component={Link} to="/my_page"/>
+                <Tab value="login" label="login" component={Link} to="/login" />
+                <Tab value="register" label="register" component={Link} to="/register" />
+                <Tab value="admin" label="admin" component={Link} to="/admin" />
               </Tabs>
             </AppBar>
             <Switch>
@@ -50,6 +59,7 @@ class Main extends Component {
               <Route path="/my_page/create_profile" component={CreateProfilePage} />
               <Route path="/my_page" component={UserPage} />
               <Route path="/profiles/:profileId" component={ProfilePage} />
+              <Route path="/admin" component={AdminPage} />
               <Route path="/" component={HomePage} />
             </Switch>
             <div>

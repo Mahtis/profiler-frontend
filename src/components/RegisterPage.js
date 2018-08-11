@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
-import TextField from 'material-ui/TextField'
-import Button from 'material-ui/Button'
-import Grid from 'material-ui/Grid'
-import Paper from 'material-ui/Paper'
+import TextField from '@material-ui/core//TextField'
+import Button from '@material-ui/core//Button'
+import Grid from '@material-ui/core//Grid'
+import Paper from '@material-ui/core//Paper'
 
 import { submitRegister } from '../api'
 import { saveToken } from '../util'

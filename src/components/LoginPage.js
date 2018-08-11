@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import TextField from 'material-ui/TextField'
-import Button from 'material-ui/Button'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
 import { Link, Redirect } from 'react-router-dom'
 import { login } from '../util'
 
