@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid'
-import List, { ListItem, ListItemText } from '@material-ui/core/List'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 

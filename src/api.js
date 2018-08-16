@@ -6,6 +6,8 @@ export const login = data => postJson('login', data)
 
 export const getUser = () => getJson('accounts')
 
+export const getUsers = () => getJson('accounts/all')
+
 export const getProfiles = (profileId) => getJson(`/?from=${profileId}`)
 
 export const getProfile = profileId => getJson(`profiles/${profileId}`)
